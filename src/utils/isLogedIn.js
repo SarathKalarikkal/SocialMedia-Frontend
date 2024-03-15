@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const isLogedIn = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise(async(resolve, reject) => {
     let token = localStorage.getItem("Auth");
 
     if (token) {
       const backendApiUrl = "https://instagram-backend-y55a.onrender.com";
-      axios
+     await axios
         .get(`${backendApiUrl}/profile`, {
           headers: {
             Authorization: "Bearer " + token,

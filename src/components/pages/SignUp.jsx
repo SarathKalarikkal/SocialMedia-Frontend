@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MainLayout from "../layouts/MainLayout";
 import axios from 'axios';
 
@@ -26,6 +26,14 @@ function SignUp() {
   })
   .catch((err) => console.log("error", err));
   };
+
+  useEffect(()=>{
+    const token = localStorage.getItem("Auth")
+    if(token && token !== ""){
+      navigate('/')
+    }
+  })
+
 
   return (
     <>

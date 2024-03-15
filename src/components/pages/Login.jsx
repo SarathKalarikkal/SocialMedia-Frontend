@@ -16,13 +16,14 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation()
 
-  const loginUser = (data) => {
+  const loginUser =async (data) => {
     console.log(data)
     const backendApiUrl = "https://instagram-backend-y55a.onrender.com"
-    axios.post(`${backendApiUrl}/auth/login`, data)
+    await axios.post(`${backendApiUrl}/auth/login`, data)
     .then((res) => {
       console.log("response", res)
       console.log("response", res.data.token)
+
       localStorage.setItem("Auth", res.data.token)
       toast.success("User Logged in!")
       navigate('/')
@@ -34,13 +35,12 @@ function Login() {
   };
 
 
-  useEffect(() => {
-    isLogedIn()
-      .then(() => navigate('/'))
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  useEffect(()=>{
+    const token = localStorage.getItem("Auth")
+    if(token && token !== ""){
+      navigate('/')
+    }
+  })
 
 
   return (
